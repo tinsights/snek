@@ -1,23 +1,24 @@
 NAME = snek
 
-CFLAGS = -Wall -Werror -Wextra -O3
+CXXFLAGS = -Wall -Werror -Wextra -O3
+
+SRCDIR = ./srcs/
+INCDIR = ./incs/
+
 INC = -I $(INCDIR)
 
-SRCDIR = srcs/
-INCDIR = incs/
+SRCS = $(addprefix $(SRCDIR), snek.cpp)
+HDRS = $(addprefix $(INCDIR), snek.hpp)
 
-SRCS = $(addprefix $(SRCDIR), snek.c)
-HDRS = $(addprefix $(INCDIR), snek.h)
-
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(HDRS)
-	cc $(CFLAGS) $(OBJS) $(INC) -lncurses -o $(NAME)
+	c++ $(CXXFLAGS) $(OBJS) $(INC) -lncurses -o $(NAME)
 
-$(SRCDIR)%.o: $(SRCDIR)%.c $(HDRS)
-	cc $(CFLAGS) -c $< $(INC) -o $@
+$(SRCDIR)%.o: $(SRCDIR)%.cpp $(HDRS)
+	c++ $(CXXFLAGS) $(INC) -c $<  -o $@
 
 clean:
 	rm -f $(OBJS)
