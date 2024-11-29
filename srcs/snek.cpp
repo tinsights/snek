@@ -6,7 +6,7 @@
 /*   By: tjegades <tjegades@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 12:49:58 by tjegades          #+#    #+#             */
-/*   Updated: 2024/11/28 21:44:37 by tjegades         ###   ########.fr       */
+/*   Updated: 2024/11/29 11:37:25 by tjegades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,27 +107,38 @@ void draw(t_snek *snek) {
 }
 
 void handle_input(int ch, t_snek* snek) {
-
 	switch (ch) {
 		case KEY_UP:
+			if (snek->dir != UP)
+				ref_rate *= 1.5; // slower
+			else
+				ref_rate /= 1.5;
 			if (snek->dir != DOWN)
 				snek->dir = UP;
-				ref_rate *= 1.5;
 			break;
 		case KEY_DOWN:
+			if (snek->dir != DOWN)
+				ref_rate *= 1.5; // slower
+			else
+				ref_rate /= 1.5;
 			if (snek->dir != UP)
 				snek->dir = DOWN;
-				ref_rate *= 1.5;
 			break;
 		case KEY_LEFT:
+			if (snek->dir == RIGHT)
+				ref_rate *= 1.5; // slower
+			else
+				ref_rate /= 1.5;
 			if (snek->dir != RIGHT)
 				snek->dir = LEFT;
-				ref_rate /= 1.5;
 			break;
 		case KEY_RIGHT:
+			if (snek->dir == LEFT)
+				ref_rate *= 1.5; // slower
+			else
+				ref_rate /= 1.5;
 			if (snek->dir != LEFT)
 				snek->dir = RIGHT;
-				ref_rate /= 1.5;
 			break;
 		default:
 			break;		
